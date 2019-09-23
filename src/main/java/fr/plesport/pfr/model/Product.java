@@ -14,7 +14,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product implements IdEntity {
+	private static final long serialVersionUID = -6869463480573840946L;
 
 	@Id
 	@GeneratedValue
@@ -30,8 +31,8 @@ public class Product {
 	@NotNull
 	@Digits(integer = 5, fraction = 2)
 	private BigDecimal price;
-	private int discountRate;
-	private int stock;
+	private Integer discountRate;
+	private Integer stock;
 	@NotBlank
 	private ProductAvailability status;
 
@@ -44,7 +45,7 @@ public class Product {
 
 //Constructeur pour Admin
 	public Product(String reference, ProductType type, String origin, ProductPackaging packaging, BigDecimal price,
-			int discountRate, int stock, ProductAvailability status) {
+			Integer discountRate, Integer stock, ProductAvailability status) {
 		this.reference = reference;
 		this.type = type;
 		this.origin = origin;
@@ -99,11 +100,11 @@ public class Product {
 		this.price = prix;
 	}
 
-	public int getStock() {
+	public Integer getStock() {
 		return stock;
 	}
 
-	public void setStock(int stock) {
+	public void setStock(Integer stock) {
 		this.stock = stock;
 	}
 
@@ -115,12 +116,18 @@ public class Product {
 		this.status = status;
 	}
 
-	public int getDiscountRate() {
+	public Integer getDiscountRate() {
 		return discountRate;
 	}
 
-	public void setDiscountRate(int discountRate) {
+	public void setDiscountRate(Integer discountRate) {
 		this.discountRate = discountRate;
+	}
+
+	@Override
+	public void setId(Long id) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

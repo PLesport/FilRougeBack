@@ -8,21 +8,24 @@ public class UserSearchCriteria {
 	private String postalCode;
 	private String city;
 	private String phoneNumber;
+	private Integer fidelityPoints;
 
 	public UserSearchCriteria() {
 	}
 
-	public UserSearchCriteria(Long id, String lastName, String postalCode, String city, String phoneNumber) {
+	public UserSearchCriteria(Long id, String lastName, String postalCode, String city, String phoneNumber,
+			Integer fidelityPoints) {
 		this.id = id;
 		this.lastName = lastName;
 		this.postalCode = postalCode;
 		this.city = city;
 		this.phoneNumber = phoneNumber;
+		this.fidelityPoints=fidelityPoints;
 	}
 
 	public boolean hasCriterias() {
 		return id != null || !StringUtils.isEmpty(lastName) || !StringUtils.isEmpty(postalCode)
-				|| !StringUtils.isEmpty(city) || !StringUtils.isEmpty(phoneNumber);
+				|| !StringUtils.isEmpty(city) || !StringUtils.isEmpty(phoneNumber)|| fidelityPoints!=null;
 	}
 
 	public Long getId() {
@@ -63,6 +66,14 @@ public class UserSearchCriteria {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public Integer getFidelityPoints() {
+		return fidelityPoints;
+	}
+
+	public void setFidelityPoints(Integer fidelityPoints) {
+		this.fidelityPoints = fidelityPoints;
 	}
 
 }

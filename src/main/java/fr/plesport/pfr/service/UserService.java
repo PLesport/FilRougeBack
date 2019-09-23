@@ -16,8 +16,9 @@ public class UserService {
 	private UserJpaRepository userJpaRepository;
 
 	public void createUser(User user) {
-	if (user.getPhoneNumber().chars().allMatch(Character::isDigit)) {
-			userJpaRepository.persist(user);}
+		if (user.getPhoneNumber().chars().allMatch(Character::isDigit)) {
+			userJpaRepository.persist(user);
+		}
 	}
 
 	public void deleteUser(User user) {
@@ -35,8 +36,9 @@ public class UserService {
 	public List<User> findAll() {
 		return userJpaRepository.findAll();
 	}
-	
+
 	public List<User> search(UserSearchCriteria criteria) {
 		return userJpaRepository.search(criteria);
 	}
+
 }

@@ -37,9 +37,11 @@ public class UserJpaRepository extends AbstractJpaRepository<User> {
 		if (!StringUtils.isEmpty(criteria.getPhoneNumber())) {
 			qlQuery += " and u.phoneNumber = :phoneNumber";
 		}
-				
+		if (criteria.getFidelityPoints() != null) {
+			qlQuery += " and u.fidelityPoints = :fidelityPoints";
+		}
 		TypedQuery<User> query = em.createQuery(qlQuery, User.class);
-		
+
 		if (criteria.hasCriterias()) {
 			if (criteria.getId() != null) {
 				query.setParameter("id", criteria.getId());
@@ -53,14 +55,17 @@ public class UserJpaRepository extends AbstractJpaRepository<User> {
 			}
 			if (!StringUtils.isEmpty(criteria.getCity())) {
 				String city = criteria.getCity().toLowerCase();
-				query.setParameter("city", criteria.getCity());
+				query.setParameter("city", "%" + city + "%");
 			}
 			if (!StringUtils.isEmpty(criteria.getPhoneNumber())) {
 				String phoneNumber = criteria.getPhoneNumber().toLowerCase();
-				query.setParameter("phoneNumber", criteria.getPhoneNumber());
+				query.setParameter("phoneNumber", "%" + phoneNumber + "%");
+			}
+			if (criteria.getFidelityPoints() != null) {
+				query.setParameter("fidelityPoints", criteria.getFidelityPoints());
 			}
 		}
-		
+
 		return query.getResultList();
 	}
 }

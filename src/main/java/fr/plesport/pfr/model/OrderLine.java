@@ -8,11 +8,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "orderline")
-public class OrderLine {
+public class OrderLine implements IdEntity {
+
+	private static final long serialVersionUID = -1441316288922066723L;
 	@Id
 	@GeneratedValue
 	private Long id;
-	private int quantity = 0;
+	private Integer quantity = 0;
 
 	@ManyToOne
 	private Product product;
@@ -20,12 +22,21 @@ public class OrderLine {
 	@ManyToOne
 	private Orders orders;
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+	@Override
+	public Long getId() {
+		return null;
+	}
+
+	@Override
+	public void setId(Long id) {
 	}
 
 }

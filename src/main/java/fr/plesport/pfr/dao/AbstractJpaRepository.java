@@ -13,7 +13,7 @@ import fr.plesport.pfr.model.IdEntity;
 @Repository
 public abstract class AbstractJpaRepository<T extends IdEntity> {
 
-	private Class<T> type;
+	private Class<T> classType;
 
 	@PersistenceContext
 	protected EntityManager em;
@@ -22,7 +22,7 @@ public abstract class AbstractJpaRepository<T extends IdEntity> {
 	}
 
 	protected AbstractJpaRepository(Class<T> type) {
-		this.type = type;
+		this.classType = type;
 	}
 
 	public void persist(T entity) {
@@ -38,11 +38,11 @@ public abstract class AbstractJpaRepository<T extends IdEntity> {
 	}
 
 	public T find(Long id) {
-		return em.find(type, id);
+		return em.find(classType, id);
 	}
 
 	public List<T> findAll() {
-		TypedQuery<T> query = em.createQuery("from " + type.getSimpleName(), type);
+		TypedQuery<T> query = em.createQuery("from " + classType.getSimpleName(), classType);
 		return query.getResultList();
 	}
 

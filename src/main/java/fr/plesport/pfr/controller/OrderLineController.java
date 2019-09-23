@@ -1,0 +1,66 @@
+package fr.plesport.pfr.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import fr.plesport.pfr.model.OrderLine;
+import fr.plesport.pfr.model.criteria.OrderLineSearchCriteria;
+import fr.plesport.pfr.service.OrderLineService;
+
+@RestController
+@RequestMapping("/api/orderlines")
+public class OrderLineController {
+
+	@Autowired
+	OrderLineService orderLineService;
+
+	@RequestMapping(method = RequestMethod.POST)
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public void createOrderLine(@RequestBody OrderLine orderLine) {
+		orderLineService.createOrderLine(orderLine);
+	}
+
+	@RequestMapping(method = RequestMethod.DELETE)
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public void deleteOrderLine(@RequestBody Long id) {
+		OrderLine orderLine = orderLineService.findOrderLineById(id);
+		orderLineService.deleteOrderLine(orderLine);
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public OrderLine findOrderLineById(@PathVariable Long id) {
+		return orderLineService.findOrderLineById(id);
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	@ResponseBody
+	public List<OrderLine> findAll() {
+		return orderLineService.findAll();
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public void updateOrderLine(@PathVariable Long id, @RequestBody OrderLine orderLine) {
+		orderLine.setId(id);
+		orderLineService.updateOrderLine(orderLine);
+	}
+
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public List<OrderLine> search(@RequestParam(name = "orderLineNumber", required = false) Long id,
+			@RequestParam(required = false) Integer quantity) {
+		OrderLineSearchCriteria criteria = new OrderLineSearchCriteria(id, quantity);
+		return orderLineService.search(criteria);
+	}
+
+}

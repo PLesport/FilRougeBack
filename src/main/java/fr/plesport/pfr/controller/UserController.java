@@ -58,12 +58,13 @@ public class UserController {
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public List<User> search(
-			@RequestParam(name = "numeroClient", required = false) Long id,
+			@RequestParam(name = "clientNumber", required = false) Long id,
 			@RequestParam(required = false) String lastName,
 			@RequestParam(required = false) String postalCode,
 			@RequestParam(required = false) String city,
-			@RequestParam(required = false) String phoneNumber) {
-		UserSearchCriteria criteria = new UserSearchCriteria(id, lastName, postalCode, city, phoneNumber);
+			@RequestParam(required = false) String phoneNumber,
+			@RequestParam(required = false) Integer fidelityPoints) {
+		UserSearchCriteria criteria = new UserSearchCriteria(id, lastName, postalCode, city, phoneNumber, fidelityPoints);
 		
 		return userService.search(criteria);
 		

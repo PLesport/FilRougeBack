@@ -40,6 +40,7 @@ public class User implements IdEntity {
 	@NotBlank
 	@Length(min = 10, max = 10)
 	private String phoneNumber;
+	private Integer fidelityPoints;
 	@NotBlank
 	@Email
 	private String email;
@@ -65,6 +66,7 @@ public class User implements IdEntity {
 		this.email = email;
 		this.password = password;
 		this.admin = admin;
+		this.fidelityPoints = 0;
 	}
 
 	public String getFirstName() {
@@ -152,6 +154,14 @@ public class User implements IdEntity {
 	}
 
 	public void setId(Long id) {
+	}
+
+	public Integer getFidelityPoints() {
+		return fidelityPoints;
+	}
+
+	public void setFidelityPoints(Integer fidelityPoints) {
+		this.fidelityPoints = fidelityPoints;
 	}
 
 }
