@@ -11,8 +11,9 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "blog")
-public class Blog {
+public class Blog implements IdEntity{
 
+	private static final long serialVersionUID = 7115463390856692329L;
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -69,6 +70,12 @@ public class Blog {
 
 	public Long getId() {
 		return id;
+	}
+
+	@Override
+	public void setId(Long id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -8,7 +8,9 @@ import javax.validation.constraints.Email;
 
 @Entity
 @Table(name = "newsletter")
-public class NewsLetter {
+public class NewsLetter implements IdEntity {
+
+	private static final long serialVersionUID = -1096540764649301836L;
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -32,6 +34,12 @@ public class NewsLetter {
 
 	public Long getId() {
 		return id;
+	}
+
+	@Override
+	public void setId(Long id) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
