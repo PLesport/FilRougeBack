@@ -26,13 +26,13 @@ public class UserJpaRepository extends AbstractJpaRepository<User> {
 			qlQuery += " and u.id = :id";
 		}
 		if (!StringUtils.isEmpty(criteria.getLastName())) {
-			qlQuery += " and u.lastName = :lastName";
+			qlQuery += " and lower(u.lastName) like :lastName";
 		}
 		if (!StringUtils.isEmpty(criteria.getPostalCode())) {
 			qlQuery += " and u.postalCode = :postalCode";
 		}
 		if (!StringUtils.isEmpty(criteria.getCity())) {
-			qlQuery += " and lower(u.city) like :city";
+			qlQuery += " and lower(u.city) = :city";
 		}
 		if (!StringUtils.isEmpty(criteria.getPhoneNumber())) {
 			qlQuery += " and u.phoneNumber = :phoneNumber";
@@ -48,18 +48,17 @@ public class UserJpaRepository extends AbstractJpaRepository<User> {
 			}
 			if (!StringUtils.isEmpty(criteria.getLastName())) {
 				String lastName = criteria.getLastName().toLowerCase();
-				query.setParameter("lastName", "%" + lastName + "%");
+				query.setParameter("lastName", "%"+ lastName + "%");
 			}
 			if (!StringUtils.isEmpty(criteria.getPostalCode())) {
 				query.setParameter("postalCode", criteria.getPostalCode());
 			}
 			if (!StringUtils.isEmpty(criteria.getCity())) {
 				String city = criteria.getCity().toLowerCase();
-				query.setParameter("city", "%" + city + "%");
+				query.setParameter("city", city);
 			}
 			if (!StringUtils.isEmpty(criteria.getPhoneNumber())) {
-				String phoneNumber = criteria.getPhoneNumber().toLowerCase();
-				query.setParameter("phoneNumber", "%" + phoneNumber + "%");
+				query.setParameter("phoneNumber", criteria.getPhoneNumber());
 			}
 			if (criteria.getFidelityPoints() != null) {
 				query.setParameter("fidelityPoints", criteria.getFidelityPoints());

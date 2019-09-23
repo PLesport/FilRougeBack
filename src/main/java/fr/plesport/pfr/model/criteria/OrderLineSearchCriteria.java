@@ -13,7 +13,7 @@ public class OrderLineSearchCriteria {
 	}
 
 	public boolean hasCriterias() {
-		return id != null || quantity != 0;
+		return id != null || quantity != null;
 	}
 
 	public Long getId() {

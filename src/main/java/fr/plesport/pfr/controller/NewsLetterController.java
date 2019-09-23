@@ -37,7 +37,7 @@ public class NewsLetterController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public List<NewsLetter> findAllVNewsLetter() {
+	public List<NewsLetter> findAllNewsLetter() {
 		return newsLetterService.findAllNewsLetter();
 	}
 
@@ -47,13 +47,6 @@ public class NewsLetterController {
 		newsLetter.setId(id);
 		newsLetterService.updateNewsLetter(newsLetter);
 	}
-	
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseBody
-	public List<NewsLetter> findAllNewsLetter() {
-		return newsLetterService.findAllNewsLetter();
-	}
-	
 	
 
 }

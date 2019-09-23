@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -23,10 +25,12 @@ public class Product implements IdEntity {
 	@NotBlank
 	private String reference;
 	@NotBlank
+	@Enumerated(EnumType.STRING)
 	private ProductType type;
 	@NotBlank
 	private String origin;
 	@NotBlank
+	@Enumerated(EnumType.STRING)
 	private ProductPackaging packaging;
 	@NotNull
 	@Digits(integer = 5, fraction = 2)
@@ -34,6 +38,7 @@ public class Product implements IdEntity {
 	private Integer discountRate;
 	private Integer stock;
 	@NotBlank
+	@Enumerated(EnumType.STRING)
 	private ProductAvailability status;
 
 	@OneToMany(mappedBy = "product")

@@ -28,13 +28,13 @@ public class BlogJpaRepository extends AbstractJpaRepository<Blog> {
 			qlQuery += " and u.id = :id";
 		}
 		if (!StringUtils.isEmpty(criteria.getTitle())) {
-			qlQuery += " and u.lastName = :title";
+			qlQuery += " and lower(u.title) like :title";
 		}
 		if (!StringUtils.isEmpty(criteria.getHeader())) {
-			qlQuery += " and u.postalCode = :header";
+			qlQuery += " and u.header = :header";
 		}
 		if (!StringUtils.isEmpty(criteria.getDate())) {
-			qlQuery += " and lower(u.city) like :date";
+			qlQuery += " and u.date = :date";
 		}
 
 		TypedQuery<Blog> query = em.createQuery(qlQuery, Blog.class);
@@ -44,8 +44,8 @@ public class BlogJpaRepository extends AbstractJpaRepository<Blog> {
 				query.setParameter("id", criteria.getId());
 			}
 			if (!StringUtils.isEmpty(criteria.getTitle())) {
-				String lastName = criteria.getTitle().toLowerCase();
-				query.setParameter("title", "%" + lastName + "%");
+				String title = criteria.getTitle().toLowerCase();
+				query.setParameter("title", "%" + title + "%");
 			}
 			if (!StringUtils.isEmpty(criteria.getHeader())) {
 				query.setParameter("header", criteria.getHeader());

@@ -28,7 +28,7 @@ public class OrdersJpaRepository extends AbstractJpaRepository<Orders> {
 			qlQuery += " and o.date = :date";
 		}
 		if (!StringUtils.isEmpty(criteria.getShippingAddress())) {
-			qlQuery += " and o.shippingAddress = :shippingAddress";
+			qlQuery += " and (lowero.shippingAddress) :shippingAddress";
 		}
 
 		TypedQuery<Orders> query = em.createQuery(qlQuery, Orders.class);
@@ -42,7 +42,7 @@ public class OrdersJpaRepository extends AbstractJpaRepository<Orders> {
 			}
 			if (!StringUtils.isEmpty(criteria.getShippingAddress())) {
 				String shippingAddress = criteria.getShippingAddress().toLowerCase();
-				query.setParameter("shippingAddress", "%" + shippingAddress + "%");
+				query.setParameter("shippingAddress", shippingAddress);
 			}
 		}
 

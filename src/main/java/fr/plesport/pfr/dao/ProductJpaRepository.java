@@ -25,13 +25,13 @@ public class ProductJpaRepository extends AbstractJpaRepository<Product> {
 			qlQuery += " and p.id = :id";
 		}
 		if (!StringUtils.isEmpty(criteria.getReference())) {
-			qlQuery += " and p.reference = :reference";
+			qlQuery += " and lower(p.reference) like :reference";
 		}
 		if (criteria.getType() != null) {
 			qlQuery += " and p.type = :type";
 		}
 		if (!StringUtils.isEmpty(criteria.getOrigin())) {
-			qlQuery += " and p.origin = :origin";
+			qlQuery += " and lower(p.origin) like :origin";
 		}
 		if (criteria.getPackaging() != null) {
 			qlQuery += " and p.packaging = :packaging";

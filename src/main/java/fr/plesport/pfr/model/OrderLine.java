@@ -32,7 +32,7 @@ public class OrderLine implements IdEntity {
 
 	@Override
 	public Long getId() {
-		return null;
+		return id;
 	}
 
 	@Override
