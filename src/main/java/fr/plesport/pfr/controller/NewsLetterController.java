@@ -31,7 +31,7 @@ public class NewsLetterController {
 	@RequestMapping(method = RequestMethod.DELETE)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void deleteNewsLetter(@RequestBody String email) {
-		List<NewsLetter> newsLetter = newsLetterService.findNewsLetterByEmail(email);
+		NewsLetter newsLetter = newsLetterService.findNewsLetterByEmail(email);
 		newsLetterService.deleteNewsLetter(newsLetter);
 	}
 	

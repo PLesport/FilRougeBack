@@ -1,7 +1,4 @@
 package fr.plesport.pfr.dao;
-
-import java.util.List;
-
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -16,10 +13,10 @@ public class NewsLetterJpaRepository extends AbstractJpaRepository<NewsLetter> {
 	}
 
 	@Transactional
-	public List<NewsLetter> findNewsLetterByEmail(String email) {
+	public NewsLetter findNewsLetterByEmail(String email) {
 		TypedQuery<NewsLetter> query = em.createQuery("from NewsLetter n where n.email = :email", NewsLetter.class);
 		query.setParameter("email", email);
-		return query.getResultList();
+		return query.getSingleResult();
 
 	}
 }

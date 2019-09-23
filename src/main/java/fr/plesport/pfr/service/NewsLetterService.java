@@ -18,7 +18,7 @@ public class NewsLetterService {
 		newsLetterJpaRepository.persist(newsLetter);
 	}
 
-	public void deleteNewsLetter(List<NewsLetter> newsletter) {
+	public void deleteNewsLetter(NewsLetter newsletter) {
 		newsLetterJpaRepository.delete(newsletter);
 	}
 
@@ -26,7 +26,7 @@ public class NewsLetterService {
 		newsLetterJpaRepository.update(newsLetter);
 	}
 
-	public List<NewsLetter> findNewsLetterByEmail(String email) {
+	public NewsLetter findNewsLetterByEmail(String email) {
 		return newsLetterJpaRepository.findNewsLetterByEmail(email);
 	}
 

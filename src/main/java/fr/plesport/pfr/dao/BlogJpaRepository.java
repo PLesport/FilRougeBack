@@ -1,7 +1,6 @@
 package fr.plesport.pfr.dao;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
@@ -20,7 +19,7 @@ public class BlogJpaRepository extends AbstractJpaRepository<Blog> {
 	}
 
 	@Transactional
-	public List<Blog> search(BlogSearchCriteria criteria) {
+	public Blog search(BlogSearchCriteria criteria) {
 		String qlQuery = "from Blog b";
 		if (criteria.hasCriterias()) {
 			qlQuery += " where 1=1";
@@ -56,6 +55,6 @@ public class BlogJpaRepository extends AbstractJpaRepository<Blog> {
 				query.setParameter("city", criteria.getDate());
 			}
 		}
-		return query.getResultList();
+		return query.getSingleResult();
 	}
 }

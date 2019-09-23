@@ -8,7 +8,6 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import fr.plesport.pfr.model.Blog;
 import fr.plesport.pfr.model.IdEntity;
 
 @Repository
@@ -34,7 +33,7 @@ public abstract class AbstractJpaRepository<T extends IdEntity> {
 		em.merge(entity);
 	}
 
-	public void delete(List<T> entity) {
+	public void delete(T entity) {
 		em.remove(entity);
 	}
 

@@ -19,7 +19,7 @@ public class BlogService {
 		blogJpaRepository.persist(blog);
 	}
 
-	public void deleteBlog(List<Blog> blog) {
+	public void deleteBlog(Blog blog) {
 		blogJpaRepository.delete(blog);
 	}
 
@@ -27,7 +27,7 @@ public class BlogService {
 		blogJpaRepository.update(blog);
 	}
 
-	public List<Blog> searchBlog(BlogSearchCriteria criteria) {
+	public Blog searchBlog(BlogSearchCriteria criteria) {
 		return blogJpaRepository.search(criteria);
 	}
 

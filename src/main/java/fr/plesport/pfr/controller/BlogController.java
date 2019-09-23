@@ -34,7 +34,7 @@ public class BlogController {
 	@RequestMapping(method = RequestMethod.DELETE)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void deleteBlog(@RequestBody BlogSearchCriteria id) {
-		List<Blog> blog = blogService.searchBlog(id);
+		Blog blog = blogService.searchBlog(id);
 		blogService.deleteBlog(blog);
 	}
 	
@@ -52,7 +52,7 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public List<Blog> search(
+	public Blog search(
 			@RequestParam(name = "id", required = false) Long id,
 			@RequestParam(required = false) String title,
 			@RequestParam(required = false) String header,
