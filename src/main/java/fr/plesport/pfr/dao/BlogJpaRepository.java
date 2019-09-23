@@ -52,7 +52,7 @@ public class BlogJpaRepository extends AbstractJpaRepository<Blog> {
 			}
 			if (!StringUtils.isEmpty(criteria.getDate())) {
 				LocalDateTime date = criteria.getDate();
-				query.setParameter("city", criteria.getDate());
+				query.setParameter("date", date);
 			}
 		}
 		return query.getSingleResult();

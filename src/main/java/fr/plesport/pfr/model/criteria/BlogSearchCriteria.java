@@ -27,7 +27,7 @@ public class BlogSearchCriteria {
 
 	public boolean hasCriterias() {
 		return id != null || !StringUtils.isEmpty(title) || !StringUtils.isEmpty(header)
-				|| !StringUtils.isEmpty(date);
+				|| date != null;
 	}
 
 	public Long getId() {
