@@ -1,0 +1,66 @@
+package fr.plesport.pfr.dao;
+
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
+
+import fr.plesport.pfr.model.User;
+import fr.plesport.pfr.model.criteria.UserSearchCriteria;
+
+@Repository
+public class UserJpaRepository extends AbstractJpaRepository<User> {
+
+	public UserJpaRepository() {
+		super(User.class);
+	}
+
+	public List<User> search(UserSearchCriteria criteria) {
+		String qlQuery = "from User u";
+		if (criteria.hasCriterias()) {
+			qlQuery += " where 1=1";
+		}
+		if (criteria.getId() != null) {
+			qlQuery += " and u.id = :id";
+		}
+		if (!StringUtils.isEmpty(criteria.getLastName())) {
+			qlQuery += " and u.lastName = :lastName";
+		}
+		if (!StringUtils.isEmpty(criteria.getPostalCode())) {
+			qlQuery += " and u.postalCode = :postalCode";
+		}
+		if (!StringUtils.isEmpty(criteria.getCity())) {
+			qlQuery += " and lower(u.city) like :city";
+		}
+		if (!StringUtils.isEmpty(criteria.getPhoneNumber())) {
+			qlQuery += " and u.phoneNumber = :phoneNumber";
+		}
+				
+		TypedQuery<User> query = em.createQuery(qlQuery, User.class);
+		
+		if (criteria.hasCriterias()) {
+			if (criteria.getId() != null) {
+				query.setParameter("id", criteria.getId());
+			}
+			if (!StringUtils.isEmpty(criteria.getLastName())) {
+				String lastName = criteria.getLastName().toLowerCase();
+				query.setParameter("lastName", "%" + lastName + "%");
+			}
+			if (!StringUtils.isEmpty(criteria.getPostalCode())) {
+				query.setParameter("postalCode", criteria.getPostalCode());
+			}
+			if (!StringUtils.isEmpty(criteria.getCity())) {
+				String city = criteria.getCity().toLowerCase();
+				query.setParameter("city", criteria.getCity());
+			}
+			if (!StringUtils.isEmpty(criteria.getPhoneNumber())) {
+				String phoneNumber = criteria.getPhoneNumber().toLowerCase();
+				query.setParameter("phoneNumber", criteria.getPhoneNumber());
+			}
+		}
+		
+		return query.getResultList();
+	}
+}
