@@ -3,6 +3,7 @@ package fr.plesport.pfr.dao;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,7 @@ public class OrderLineJpaRepository extends AbstractJpaRepository<OrderLine> {
 	public OrderLineJpaRepository() {
 		super(OrderLine.class);
 	}
-
+	@Transactional
 	public List<OrderLine> search(OrderLineSearchCriteria criteria) {
 		String qlQuery = "from OrderLine ol";
 		if (criteria.hasCriterias()) {

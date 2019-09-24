@@ -11,6 +11,8 @@ import fr.plesport.pfr.model.ProductType;
 public class ProductSearchCriteria {
 
 	private Long id;
+	private String name;
+	private String description;
 	private String reference;
 	private ProductType type;
 	private String origin;
@@ -23,9 +25,11 @@ public class ProductSearchCriteria {
 	public ProductSearchCriteria() {
 	}
 
-	public ProductSearchCriteria(Long id, String reference, ProductType type, String origin, ProductPackaging packaging,
+	public ProductSearchCriteria(Long id,String name,String description, String reference, ProductType type, String origin, ProductPackaging packaging,
 			BigDecimal price, Integer discountRate, Integer stock, ProductAvailability status) {
 		this.id = id;
+		this.name=name;
+		this.description=description;
 		this.reference = reference;
 		this.type = type;
 		this.origin = origin;
@@ -37,7 +41,7 @@ public class ProductSearchCriteria {
 	}
 
 	public boolean hasCriterias() {
-		return id != null || !StringUtils.isEmpty(reference) || type != null || !StringUtils.isEmpty(origin)
+		return id != null || !StringUtils.isEmpty(name)||!StringUtils.isEmpty(description)|| !StringUtils.isEmpty(reference) || type != null || !StringUtils.isEmpty(origin)
 				|| packaging != null || price != null || discountRate != null || stock != null || status != null;
 	}
 
@@ -111,6 +115,22 @@ public class ProductSearchCriteria {
 
 	public void setStatus(ProductAvailability status) {
 		this.status = status;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	

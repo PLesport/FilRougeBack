@@ -3,6 +3,9 @@ package fr.plesport.pfr.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.plesport.pfr.model.Blog;
 import fr.plesport.pfr.model.criteria.BlogSearchCriteria;
 import fr.plesport.pfr.service.BlogService;
-
+@Transactional
 @RestController
 @RequestMapping(("/api/blog"))
 public class BlogController {
@@ -27,13 +30,13 @@ public class BlogController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void createBlog(@RequestBody Blog blog) {
+	public void createBlog(@RequestBody @Valid Blog blog) {
 		blogService.createBlog(blog);
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void deleteBlog(@RequestBody BlogSearchCriteria id) {
+	public void deleteBlog(@PathVariable BlogSearchCriteria id) {
 		Blog blog = blogService.searchBlog(id);
 		blogService.deleteBlog(blog);
 	}

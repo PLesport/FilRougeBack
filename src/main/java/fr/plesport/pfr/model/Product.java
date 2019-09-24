@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -16,20 +18,25 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "product")
+@SequenceGenerator(name = "sequence-product", sequenceName = "sequenceProduct", initialValue = 1, allocationSize = 1)
 public class Product implements IdEntity {
 	private static final long serialVersionUID = -6869463480573840946L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY , generator="sequence-product")
 	private Long id;
 	@NotBlank
-	private String reference;
+	private String name;
 	@NotBlank
+	private String description;
+	@NotBlank
+	private String reference;
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private ProductType type;
 	@NotBlank
 	private String origin;
-	@NotBlank
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private ProductPackaging packaging;
 	@NotNull
@@ -37,20 +44,23 @@ public class Product implements IdEntity {
 	private BigDecimal price;
 	private Integer discountRate;
 	private Integer stock;
-	@NotBlank
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private ProductAvailability status;
+	private String url;
+	private String attributes;
 
 	@OneToMany(mappedBy = "product")
 	private List<OrderLine> orderLines;
 
-//Constructeur Vide
 	public Product() {
 	}
 
-//Constructeur pour Admin
-	public Product(String reference, ProductType type, String origin, ProductPackaging packaging, BigDecimal price,
-			Integer discountRate, Integer stock, ProductAvailability status) {
+	public Product(String name, String description, String reference, ProductType type, String origin,
+			ProductPackaging packaging, BigDecimal price, Integer discountRate, Integer stock,
+			ProductAvailability status) {
+		this.name = name;
+		this.description = description;
 		this.reference = reference;
 		this.type = type;
 		this.origin = origin;
@@ -129,10 +139,40 @@ public class Product implements IdEntity {
 		this.discountRate = discountRate;
 	}
 
-	@Override
 	public void setId(Long id) {
-		// TODO Auto-generated method stub
+		this.id=id;
+	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(String attributes) {
+		this.attributes = attributes;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

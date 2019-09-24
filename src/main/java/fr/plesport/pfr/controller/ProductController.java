@@ -3,6 +3,8 @@ package fr.plesport.pfr.controller;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,23 +22,23 @@ import fr.plesport.pfr.model.ProductPackaging;
 import fr.plesport.pfr.model.ProductType;
 import fr.plesport.pfr.model.criteria.ProductSearchCriteria;
 import fr.plesport.pfr.service.ProductService;
-
+@Transactional
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
 
 	@Autowired
 	ProductService productService;
-
+	@Transactional
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void createProduct(@RequestBody Product product) {
 		productService.createProduct(product);
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void deleteProduct(@RequestBody Long id) {
+	public void deleteProduct(@PathVariable Long id) {
 		Product product = productService.findProductById(id);
 		productService.deleteProduct(product);
 	}
@@ -53,7 +55,6 @@ public class ProductController {
 		return productService.findAll();
 	}
 
-
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public void updateProduct(@PathVariable Long id, @RequestBody Product product) {
@@ -63,6 +64,8 @@ public class ProductController {
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public List<Product> search(@RequestParam(name = "productNumber", required = false) Long id, //
+			@RequestParam(required = false) String name, //
+			@RequestParam(required = false) String description, //
 			@RequestParam(required = false) String reference, //
 			@RequestParam(required = false) String type, //
 			@RequestParam(required = false) String origin, //
@@ -77,8 +80,8 @@ public class ProductController {
 		BigDecimal priceT = price != null ? BigDecimal.valueOf(price) : null;
 		ProductAvailability statusT = status != null ? ProductAvailability.valueOf(status) : null;
 
-		ProductSearchCriteria criteria = new ProductSearchCriteria(id, reference, typeT, origin, packagingT, priceT,
-				discountRate, stock, statusT);
+		ProductSearchCriteria criteria = new ProductSearchCriteria(id, name, description, reference, typeT, origin,
+				packagingT, priceT, discountRate, stock, statusT);
 
 		return productService.search(criteria);
 

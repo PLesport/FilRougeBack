@@ -2,6 +2,8 @@ package fr.plesport.pfr.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.plesport.pfr.model.OrderLine;
 import fr.plesport.pfr.model.criteria.OrderLineSearchCriteria;
 import fr.plesport.pfr.service.OrderLineService;
-
+@Transactional
 @RestController
 @RequestMapping("/api/orderlines")
 public class OrderLineController {
@@ -30,9 +32,9 @@ public class OrderLineController {
 		orderLineService.createOrderLine(orderLine);
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void deleteOrderLine(@RequestBody Long id) {
+	public void deleteOrderLine(@PathVariable Long id) {
 		OrderLine orderLine = orderLineService.findOrderLineById(id);
 		orderLineService.deleteOrderLine(orderLine);
 	}

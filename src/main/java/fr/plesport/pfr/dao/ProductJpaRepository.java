@@ -3,6 +3,7 @@ package fr.plesport.pfr.dao;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -15,7 +16,7 @@ public class ProductJpaRepository extends AbstractJpaRepository<Product> {
 	public ProductJpaRepository() {
 		super(Product.class);
 	}
-
+	@Transactional
 	public List<Product> search(ProductSearchCriteria criteria) {
 		String qlQuery = "from Product p";
 		if (criteria.hasCriterias()) {
@@ -23,6 +24,12 @@ public class ProductJpaRepository extends AbstractJpaRepository<Product> {
 		}
 		if (criteria.getId() != null) {
 			qlQuery += " and p.id = :id";
+		}
+		if (!StringUtils.isEmpty(criteria.getName())) {
+			qlQuery += " and lower(p.name) like :name";
+		}
+		if (!StringUtils.isEmpty(criteria.getDescription())) {
+			qlQuery += " and lower(p.description) like :description";
 		}
 		if (!StringUtils.isEmpty(criteria.getReference())) {
 			qlQuery += " and lower(p.reference) like :reference";
@@ -54,6 +61,14 @@ public class ProductJpaRepository extends AbstractJpaRepository<Product> {
 		if (criteria.hasCriterias()) {
 			if (criteria.getId() != null) {
 				query.setParameter("id", criteria.getId());
+			}
+			if (!StringUtils.isEmpty(criteria.getName())) {
+				String name = criteria.getName().toLowerCase();
+				query.setParameter("name", "%" + name + "%");
+			}
+			if (!StringUtils.isEmpty(criteria.getDescription())) {
+				String description = criteria.getDescription().toLowerCase();
+				query.setParameter("description", "%" + description + "%");
 			}
 			if (!StringUtils.isEmpty(criteria.getReference())) {
 				String reference = criteria.getReference().toLowerCase();

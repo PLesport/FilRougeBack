@@ -3,6 +3,7 @@ package fr.plesport.pfr.dao;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -16,7 +17,7 @@ public class UserJpaRepository extends AbstractJpaRepository<User> {
 	public UserJpaRepository() {
 		super(User.class);
 	}
-
+	@Transactional
 	public List<User> search(UserSearchCriteria criteria) {
 		String qlQuery = "from User u";
 		if (criteria.hasCriterias()) {

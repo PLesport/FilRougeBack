@@ -2,6 +2,8 @@ package fr.plesport.pfr.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.plesport.pfr.model.NewsLetter;
 import fr.plesport.pfr.service.NewsLetterService;
-
+@Transactional
 @RestController
 @RequestMapping(("/api/newsletter"))
 public class NewsLetterController {
@@ -28,9 +30,9 @@ public class NewsLetterController {
 		newsLetterService.createNewsLetter(newsLetter);
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void deleteNewsLetter(@RequestBody String email) {
+	public void deleteNewsLetter(@PathVariable String email) {
 		NewsLetter newsLetter = newsLetterService.findNewsLetterByEmail(email);
 		newsLetterService.deleteNewsLetter(newsLetter);
 	}

@@ -3,6 +3,7 @@ package fr.plesport.pfr.dao;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -15,7 +16,7 @@ public class OrdersJpaRepository extends AbstractJpaRepository<Orders> {
 	public OrdersJpaRepository() {
 		super(Orders.class);
 	}
-
+	@Transactional
 	public List<Orders> search(OrdersSearchCriteria criteria) {
 		String qlQuery = "from Orders o";
 		if (criteria.hasCriterias()) {
@@ -27,8 +28,11 @@ public class OrdersJpaRepository extends AbstractJpaRepository<Orders> {
 		if (criteria.getDate() != null) {
 			qlQuery += " and o.date = :date";
 		}
+		if(criteria.getOrdersStatus()!=null) {
+			qlQuery += " and o.ordersStatus = :ordersStatus";
+		}	
 		if (!StringUtils.isEmpty(criteria.getShippingAddress())) {
-			qlQuery += " and (lowero.shippingAddress) :shippingAddress";
+			qlQuery += " and lower(o.shippingAddress) :shippingAddress";
 		}
 
 		TypedQuery<Orders> query = em.createQuery(qlQuery, Orders.class);
@@ -39,6 +43,9 @@ public class OrdersJpaRepository extends AbstractJpaRepository<Orders> {
 			}
 			if (criteria.getDate() != null) {
 				query.setParameter("date", criteria.getDate());
+			}
+			if (criteria.getOrdersStatus() != null) {
+				query.setParameter("ordersStatus", criteria.getOrdersStatus());
 			}
 			if (!StringUtils.isEmpty(criteria.getShippingAddress())) {
 				String shippingAddress = criteria.getShippingAddress().toLowerCase();

@@ -2,17 +2,20 @@ package fr.plesport.pfr.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
 @Entity
 @Table(name = "newsletter")
+@SequenceGenerator(name = "sequence-newsletter", sequenceName = "sequenceNewsletter", initialValue = 1, allocationSize = 1)
 public class NewsLetter implements IdEntity {
 
 	private static final long serialVersionUID = -1096540764649301836L;
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY , generator="sequence-newsletter")
 	private Long id;
 	@Email
 	private String email;
@@ -36,10 +39,9 @@ public class NewsLetter implements IdEntity {
 		return id;
 	}
 
-	@Override
-	public void setId(Long id) {
-		// TODO Auto-generated method stub
 
+	public void setId(Long id) {
+		this.id=id;
 	}
 
 }

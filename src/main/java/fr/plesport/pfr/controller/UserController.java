@@ -2,6 +2,8 @@ package fr.plesport.pfr.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.plesport.pfr.model.User;
 import fr.plesport.pfr.model.criteria.UserSearchCriteria;
 import fr.plesport.pfr.service.UserService;
-
+@Transactional
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -30,9 +32,9 @@ public class UserController {
 		userService.createUser(user);
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void deleteUser(@RequestBody Long id) {
+	public void deleteUser(@PathVariable Long id) {
 		User user = userService.findUserById(id);
 		userService.deleteUser(user);
 	}

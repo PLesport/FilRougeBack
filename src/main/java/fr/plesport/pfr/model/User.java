@@ -6,25 +6,30 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
+import fr.plesport.pfr.validator.PhoneNumber;
+import fr.plesport.pfr.validator.PostalCode;
 
 @Entity
 @Table(name = "user_")
+@SequenceGenerator(name = "sequence-user", sequenceName = "sequenceUser", initialValue = 1, allocationSize = 1)
 public class User implements IdEntity {
 
 	private static final long serialVersionUID = -8754964535672771858L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY , generator="sequence-user")
 	private Long id;
 	@Enumerated(EnumType.STRING)
-	@NotBlank
+	@NotNull
 	private UserCivility civility;
 	@NotBlank
 	private String firstName;
@@ -35,10 +40,12 @@ public class User implements IdEntity {
 	@NotBlank
 	private String city;
 	@NotBlank
-	@Length(min = 5, max = 5)
+	@PostalCode
+//	@Length(min = 5, max = 5)
 	private String postalCode;
 	@NotBlank
-	@Length(min = 10, max = 10)
+	@PhoneNumber
+//	@Length(min = 10, max = 10)
 	private String phoneNumber;
 	private Integer fidelityPoints;
 	@NotBlank
@@ -154,6 +161,7 @@ public class User implements IdEntity {
 	}
 
 	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Integer getFidelityPoints() {

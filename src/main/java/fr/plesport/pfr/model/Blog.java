@@ -4,18 +4,21 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "blog")
+@SequenceGenerator(name = "sequence-blog", sequenceName = "sequenceBlog", initialValue = 1, allocationSize = 1)
 public class Blog implements IdEntity{
 
 	private static final long serialVersionUID = 7115463390856692329L;
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY , generator="sequence-blog")
 	private Long id;
 	@NotBlank
 	private String title;
@@ -72,10 +75,8 @@ public class Blog implements IdEntity{
 		return id;
 	}
 
-	@Override
 	public void setId(Long id) {
-		// TODO Auto-generated method stub
-		
+	this.id=id;	
 	}
 
 }

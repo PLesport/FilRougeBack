@@ -4,23 +4,27 @@ import java.time.LocalDateTime;
 
 import org.springframework.util.StringUtils;
 
+import fr.plesport.pfr.model.OrdersStatus;
+
 public class OrdersSearchCriteria {
 
 	private Long id;
 	private LocalDateTime date;
 	private String shippingAddress;
+	private OrdersStatus ordersStatus;
 
 	public OrdersSearchCriteria() {
 	}
 
-	public OrdersSearchCriteria(Long id, LocalDateTime date, String shippingAddress) {
+	public OrdersSearchCriteria(Long id, LocalDateTime date, String shippingAddress, OrdersStatus ordersStatus) {
 		this.id = id;
 		this.date = date;
 		this.shippingAddress = shippingAddress;
+		this.ordersStatus = ordersStatus;
 	}
 
 	public boolean hasCriterias() {
-		return id != null || date != null || !StringUtils.isEmpty(shippingAddress);
+		return id != null || date != null || !StringUtils.isEmpty(shippingAddress) || ordersStatus != null;
 	}
 
 	public Long getId() {
@@ -45,5 +49,13 @@ public class OrdersSearchCriteria {
 
 	public void setShippingAddress(String shippingAddress) {
 		this.shippingAddress = shippingAddress;
+	}
+
+	public OrdersStatus getOrdersStatus() {
+		return ordersStatus;
+	}
+
+	public void setOrdersStatus(OrdersStatus ordersStatus) {
+		this.ordersStatus = ordersStatus;
 	}
 }

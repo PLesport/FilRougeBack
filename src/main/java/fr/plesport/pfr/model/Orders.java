@@ -5,26 +5,43 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
 @Entity
 @Table(name = "orders")
+@SequenceGenerator(name = "sequence-orders", sequenceName = "sequenceOrders", initialValue = 1, allocationSize = 1)
 public class Orders implements IdEntity {
 
 	private static final long serialVersionUID = -7660929552633136535L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY , generator="sequence-orders")
 	private Long id;
-
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime date;
 	@NotBlank
 	private String shippingAdress;
+
+	@NotNull
+	private OrdersStatus ordersStatus;
 
 	@NotNull
 	@OneToMany(mappedBy = "orders")
@@ -69,11 +86,9 @@ public class Orders implements IdEntity {
 	public Long getId() {
 		return id;
 	}
-
-	@Override
+	
 	public void setId(Long id) {
-		// TODO Auto-generated method stub
-
+		this.id=id;
 	}
 
 }
