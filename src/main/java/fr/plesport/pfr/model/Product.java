@@ -42,12 +42,16 @@ public class Product implements IdEntity {
 	@NotNull
 	@Digits(integer = 5, fraction = 2)
 	private BigDecimal price;
+	@NotNull
 	private Integer discountRate;
+	@NotNull
 	private Integer stock;
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private ProductAvailability status;
+	@NotBlank
 	private String url;
+	@NotBlank
 	private String attributes;
 
 	@OneToMany(mappedBy = "product")

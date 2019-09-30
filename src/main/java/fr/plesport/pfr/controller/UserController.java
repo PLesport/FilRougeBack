@@ -3,6 +3,7 @@ package fr.plesport.pfr.controller;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void createUser(@RequestBody User user) {
+	public void createUser(@RequestBody @Valid User user) {
 		userService.createUser(user);
 	}
 
@@ -53,7 +54,7 @@ public class UserController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public void updateUser(@PathVariable Long id, @RequestBody User user) {
+	public void updateUser(@PathVariable Long id, @RequestBody @Valid User user) {
 		user.setId(id);
 		userService.updateUser(user);
 	}

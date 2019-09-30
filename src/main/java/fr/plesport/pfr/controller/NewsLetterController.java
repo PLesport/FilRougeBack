@@ -3,6 +3,7 @@ package fr.plesport.pfr.controller;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class NewsLetterController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void createNewsLetter(@RequestBody NewsLetter newsLetter) {
+	public void createNewsLetter(@RequestBody @Valid NewsLetter newsLetter) {
 		newsLetterService.createNewsLetter(newsLetter);
 	}
 
@@ -45,7 +46,7 @@ public class NewsLetterController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public void updateNewsLetter(@PathVariable Long id, @RequestBody NewsLetter newsLetter) {
+	public void updateNewsLetter(@PathVariable Long id, @RequestBody @Valid NewsLetter newsLetter) {
 		newsLetter.setId(id);
 		newsLetterService.updateNewsLetter(newsLetter);
 	}

@@ -6,10 +6,10 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.util.StringUtils;
 
 public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, String> {
-	public void initialize(PostalCode constraintAnnotation) {
+	public void initialize(PhoneNumber constraintAnnotation) {
 	}
 
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		return StringUtils.isEmpty(value) || value.length() == 10;
+		return StringUtils.isEmpty(value) || value.length() == 10 || value.charAt(0) == 0;
 	}
 }

@@ -16,9 +16,7 @@ public class UserService {
 	private UserJpaRepository userJpaRepository;
 
 	public void createUser(User user) {
-		if (user.getPhoneNumber().chars().allMatch(Character::isDigit)) {
 			userJpaRepository.persist(user);
-		}
 	}
 
 	public void deleteUser(User user) {

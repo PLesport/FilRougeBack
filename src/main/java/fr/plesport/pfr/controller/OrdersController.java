@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class OrdersController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void createOrders(@RequestBody Orders orders) {
+	public void createOrders(@RequestBody @Valid Orders orders) {
 		ordersService.createOrders(orders);
 	}
 
@@ -55,7 +56,7 @@ public class OrdersController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public void updateOrders(@PathVariable Long id, @RequestBody Orders orders) {
+	public void updateOrders(@PathVariable Long id, @RequestBody @Valid Orders orders) {
 		orders.setId(id);
 		ordersService.updateOrders(orders);
 	}

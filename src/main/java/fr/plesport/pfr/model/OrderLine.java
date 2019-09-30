@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "orderline")
@@ -17,6 +18,7 @@ public class OrderLine implements IdEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY , generator="sequence-orderline")
 	private Long id;
+	@NotBlank
 	private Integer quantity = 0;
 
 	@ManyToOne

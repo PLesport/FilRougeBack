@@ -3,6 +3,7 @@ package fr.plesport.pfr.controller;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class OrderLineController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void createOrderLine(@RequestBody OrderLine orderLine) {
+	public void createOrderLine(@RequestBody @Valid OrderLine orderLine) {
 		orderLineService.createOrderLine(orderLine);
 	}
 
@@ -53,7 +54,7 @@ public class OrderLineController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public void updateOrderLine(@PathVariable Long id, @RequestBody OrderLine orderLine) {
+	public void updateOrderLine(@PathVariable Long id, @RequestBody @Valid OrderLine orderLine) {
 		orderLine.setId(id);
 		orderLineService.updateOrderLine(orderLine);
 	}

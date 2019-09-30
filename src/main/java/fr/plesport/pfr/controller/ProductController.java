@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class ProductController {
 	@Transactional
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void createProduct(@RequestBody Product product) {
+	public void createProduct(@RequestBody @Valid Product product) {
 		productService.createProduct(product);
 	}
 
@@ -57,7 +58,7 @@ public class ProductController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public void updateProduct(@PathVariable Long id, @RequestBody Product product) {
+	public void updateProduct(@PathVariable Long id, @RequestBody  @Valid Product product) {
 		product.setId(id);
 		productService.updateProduct(product);
 	}

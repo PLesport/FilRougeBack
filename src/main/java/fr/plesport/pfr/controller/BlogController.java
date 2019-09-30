@@ -49,7 +49,7 @@ public class BlogController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public void updateBlog(@PathVariable Long id, @RequestBody Blog blog) {
+	public void updateBlog(@PathVariable Long id, @RequestBody @Valid Blog blog) {
 		blog.setId(id);
 		blogService.updateBlog(blog);
 	}

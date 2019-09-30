@@ -47,13 +47,15 @@ public class User implements IdEntity {
 	@PhoneNumber
 //	@Length(min = 10, max = 10)
 	private String phoneNumber;
+	@NotNull
 	private Integer fidelityPoints;
 	@NotBlank
 	@Email
 	private String email;
 	@NotBlank
 	private String password;
-	private boolean admin;
+	@NotNull
+	private Boolean admin;
 
 	@OneToMany(mappedBy = "userId")
 	private List<Orders> order;
@@ -148,11 +150,11 @@ public class User implements IdEntity {
 		this.password = password;
 	}
 
-	public boolean isAdmin() {
+	public Boolean isAdmin() {
 		return admin;
 	}
 
-	public void setAdmin(boolean admin) {
+	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}
 

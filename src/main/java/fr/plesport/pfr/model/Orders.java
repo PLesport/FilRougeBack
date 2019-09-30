@@ -39,7 +39,6 @@ public class Orders implements IdEntity {
 	private LocalDateTime date;
 	@NotBlank
 	private String shippingAdress;
-
 	@NotNull
 	private OrdersStatus ordersStatus;
 
