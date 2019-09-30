@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.util.StringUtils;
 
 public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, String> {
-	public void initialize(PostalCode constraintAnnotation) {
+	public void initialize(PhoneNumber constraintAnnotation) {
 	}
 
 	public boolean isValid(String value, ConstraintValidatorContext context) {
