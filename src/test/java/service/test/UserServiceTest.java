@@ -25,8 +25,7 @@ public class UserServiceTest {
 
 	@Test
 	public void createTest() {
-		User user = new User(UserCivility.MR, "Jean", "Foutre", "70 rue de la sodomie", "Pornhub", "34000", 612589636,
-				"foutre@gmail.com", "jolzrej", false);
+		User user = new User(UserCivility.MR, "Jean", "Bonbeur", "12,  Rue des pins","Montpellier", "34000", "0123456789", "jean.bonbeur@gmail.com", "jeanbonbeur", false);
 		userService.createUser(user);
 	}
 	
