@@ -29,5 +29,34 @@ public class UserServiceTest {
 		userService.createUser(user);
 	}
 	
+	@Test
+	public void createSameUserTest() {
+		User user = new User(UserCivility.MR, "Jean", "Bonbeur", "12,  Rue des pins","Montpellier", "34000", "0123456789", "jean.bonbeur@gmail.com", "jeanbonbeur", false);
+		userService.createUser(user);
+	}
 	
+	@Test
+	public void createNullUser() {
+		User user = null;
+		userService.createUser(user);
+	}
+	
+	@Test
+	public void updateUserTest() {
+		User user = new User(UserCivility.MR, "Jean", "Bonbeur", "54,  Rue des moufles","Paris", "75000", "0123456789", "jean.bonbeur@gmail.com", "jeanbonbeur", false);
+		userService.updateUser(user);
+	}
+	
+	@Test
+	public void findUserByIdTest() {
+		Long id = 1L;
+		userService.findUserById(id);
+	}
+	
+	@Test
+	public void deleteUserTest() {
+		Long id = 1L;
+		User user = userService.findUserById(id);
+		userService.deleteUser(user);
+	}
 }

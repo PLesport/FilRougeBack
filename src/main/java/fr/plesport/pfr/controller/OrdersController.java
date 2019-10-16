@@ -7,7 +7,11 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +52,7 @@ public class OrdersController {
 		return ordersService.findOrdersById(id);
 	}
 
+//	@PreAuthorize("hasRole('ADMIN') or hasAuthority('R_ORDER')")
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public List<Orders> findAll() {
@@ -63,7 +68,7 @@ public class OrdersController {
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public List<Orders> search(@RequestParam(name = "ordersNumber", required = false) Long id,
-								@RequestParam(required = false) LocalDateTime date, 
+								@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd", iso = ISO.DATE_TIME) LocalDateTime date, 
 								@RequestParam(required = false) String shippingAddress,
 								@RequestParam(required = false) String ordersStatus) {
 		
