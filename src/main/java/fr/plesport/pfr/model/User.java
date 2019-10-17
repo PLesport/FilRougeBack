@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -54,17 +55,17 @@ public class User implements IdEntity {
 	private String email;
 	@NotBlank
 	private String password;
-	@NotNull
-	private Boolean admin;
 
 	@OneToMany(mappedBy = "userId")
 	private List<Orders> order;
+	@ManyToOne
+	private Role role;
 
 	public User() {
 	}
 
 	public User(UserCivility civility, String firstName, String lastName, String adress, String city, String postalCode,
-			String phoneNumber, String email, String password, boolean admin) {
+			String phoneNumber, String email, String password) {
 		this.civility = civility;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -74,7 +75,6 @@ public class User implements IdEntity {
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 		this.password = password;
-		this.admin = admin;
 		this.fidelityPoints = 0;
 	}
 
@@ -150,14 +150,6 @@ public class User implements IdEntity {
 		this.password = password;
 	}
 
-	public Boolean isAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(Boolean admin) {
-		this.admin = admin;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -172,6 +164,15 @@ public class User implements IdEntity {
 
 	public void setFidelityPoints(Integer fidelityPoints) {
 		this.fidelityPoints = fidelityPoints;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role adminRole) {
+		this.role = adminRole;
+		
 	}
 
 }

@@ -12,11 +12,12 @@ import fr.plesport.pfr.model.Product;
 import fr.plesport.pfr.model.criteria.ProductSearchCriteria;
 
 @Repository
+@Transactional
 public class ProductJpaRepository extends AbstractJpaRepository<Product> {
 	public ProductJpaRepository() {
 		super(Product.class);
 	}
-	@Transactional
+	
 	public List<Product> search(ProductSearchCriteria criteria) {
 		String qlQuery = "from Product p";
 		if (criteria.hasCriterias()) {

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,13 +27,15 @@ public class OrderLineController {
 
 	@Autowired
 	OrderLineService orderLineService;
-
+	
+	@PreAuthorize("hasAuthority('C_ORDERLINE')")
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void createOrderLine(@RequestBody @Valid OrderLine orderLine) {
 		orderLineService.createOrderLine(orderLine);
 	}
 
+	@PreAuthorize("hasAuthority('D_ORDERLINE')")
 	@RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void deleteOrderLine(@PathVariable Long id) {
@@ -40,18 +43,21 @@ public class OrderLineController {
 		orderLineService.deleteOrderLine(orderLine);
 	}
 
+	@PreAuthorize("hasAuthority('F_ORDERLINE')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public OrderLine findOrderLineById(@PathVariable Long id) {
 		return orderLineService.findOrderLineById(id);
 	}
 
+	@PreAuthorize("hasAuthority('F_ORDERLINE')")
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public List<OrderLine> findAll() {
 		return orderLineService.findAll();
 	}
 
+	@PreAuthorize("hasAuthority('U_ORDERLINE')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public void updateOrderLine(@PathVariable Long id, @RequestBody @Valid OrderLine orderLine) {
@@ -59,6 +65,7 @@ public class OrderLineController {
 		orderLineService.updateOrderLine(orderLine);
 	}
 
+	@PreAuthorize("hasAuthority('F_ORDERLINE')")
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public List<OrderLine> search(@RequestParam(name = "orderLineNumber", required = false) Long id,
 			@RequestParam(required = false) Integer quantity) {

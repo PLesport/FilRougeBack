@@ -12,11 +12,12 @@ import fr.plesport.pfr.model.Orders;
 import fr.plesport.pfr.model.criteria.OrdersSearchCriteria;
 
 @Repository
+@Transactional
 public class OrdersJpaRepository extends AbstractJpaRepository<Orders> {
 	public OrdersJpaRepository() {
 		super(Orders.class);
 	}
-	@Transactional
+	
 	public List<Orders> search(OrdersSearchCriteria criteria) {
 		String qlQuery = "from Orders o";
 		if (criteria.hasCriterias()) {

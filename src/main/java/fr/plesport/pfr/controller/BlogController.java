@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,12 +29,14 @@ public class BlogController {
 	@Autowired
 	BlogService blogService;
 
+	@PreAuthorize("hasAuthority('C_BLOG')")
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void createBlog(@RequestBody @Valid Blog blog) {
 		blogService.createBlog(blog);
 	}
 
+	@PreAuthorize("hasAuthority('D_BLOG')")
 	@RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void deleteBlog(@PathVariable BlogSearchCriteria id) {
@@ -41,12 +44,14 @@ public class BlogController {
 		blogService.deleteBlog(blog);
 	}
 	
+	@PreAuthorize("hasAuthority('F_BLOG') or returnObject.email == principal.username")
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public List<Blog> findAllVBlog() {
 		return blogService.findAllBlog();
 	}
 
+	@PreAuthorize("hasAuthority('U_BLOG')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public void updateBlog(@PathVariable Long id, @RequestBody @Valid Blog blog) {
@@ -54,6 +59,7 @@ public class BlogController {
 		blogService.updateBlog(blog);
 	}
 	
+	@PreAuthorize("hasAuthority('F_BLOG') or returnObject.email == principal.username")
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public Blog search(
 			@RequestParam(name = "id", required = false) Long id,
