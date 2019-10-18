@@ -11,11 +11,12 @@ import fr.plesport.pfr.model.OrderLine;
 import fr.plesport.pfr.model.criteria.OrderLineSearchCriteria;
 
 @Repository
+@Transactional
 public class OrderLineJpaRepository extends AbstractJpaRepository<OrderLine> {
 	public OrderLineJpaRepository() {
 		super(OrderLine.class);
 	}
-	@Transactional
+	
 	public List<OrderLine> search(OrderLineSearchCriteria criteria) {
 		String qlQuery = "from OrderLine ol";
 		if (criteria.hasCriterias()) {

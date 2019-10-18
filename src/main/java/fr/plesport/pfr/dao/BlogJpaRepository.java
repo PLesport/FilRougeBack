@@ -12,13 +12,13 @@ import fr.plesport.pfr.model.Blog;
 import fr.plesport.pfr.model.criteria.BlogSearchCriteria;
 
 @Repository
+@Transactional
 public class BlogJpaRepository extends AbstractJpaRepository<Blog> {
 
 	public BlogJpaRepository() {
 		super(Blog.class);
 	}
 
-	@Transactional
 	public Blog search(BlogSearchCriteria criteria) {
 		String qlQuery = "from Blog b";
 		if (criteria.hasCriterias()) {

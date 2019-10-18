@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,8 @@ import fr.plesport.pfr.model.ProductPackaging;
 import fr.plesport.pfr.model.ProductType;
 import fr.plesport.pfr.model.criteria.ProductSearchCriteria;
 import fr.plesport.pfr.service.ProductService;
+
+@CrossOrigin("http://localhost:4200")
 @Transactional
 @RestController
 @RequestMapping("/api/products")
@@ -30,6 +34,8 @@ public class ProductController {
 
 	@Autowired
 	ProductService productService;
+	
+	@PreAuthorize("hasAuthority('C_PRODUCT')")
 	@Transactional
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -37,6 +43,7 @@ public class ProductController {
 		productService.createProduct(product);
 	}
 
+	@PreAuthorize("hasAuthority('D_PRODUCT')")
 	@RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void deleteProduct(@PathVariable Long id) {
@@ -55,7 +62,8 @@ public class ProductController {
 	public List<Product> findAll() {
 		return productService.findAll();
 	}
-
+	
+	@PreAuthorize("hasAuthority('U_PRODUCT')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public void updateProduct(@PathVariable Long id, @RequestBody  @Valid Product product) {
@@ -64,16 +72,16 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public List<Product> search(@RequestParam(name = "productNumber", required = false) Long id, //
-			@RequestParam(required = false) String name, //
-			@RequestParam(required = false) String description, //
-			@RequestParam(required = false) String reference, //
-			@RequestParam(required = false) String type, //
-			@RequestParam(required = false) String origin, //
-			@RequestParam(required = false) String packaging, //
-			@RequestParam(required = false) Long price, //
-			@RequestParam(required = false) Integer discountRate, //
-			@RequestParam(required = false) Integer stock, //
+	public List<Product> search(@RequestParam(name = "productNumber", required = false) Long id, 
+			@RequestParam(required = false) String name, 
+			@RequestParam(required = false) String description, 
+			@RequestParam(required = false) String reference, 
+			@RequestParam(required = false) String type, 
+			@RequestParam(required = false) String origin, 
+			@RequestParam(required = false) String packaging, 
+			@RequestParam(required = false) Long price, 
+			@RequestParam(required = false) Integer discountRate, 
+			@RequestParam(required = false) Integer stock, 
 			@RequestParam(required = false) String status) {
 
 		ProductType typeT = type != null ? ProductType.valueOf(type) : null;

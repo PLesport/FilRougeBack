@@ -17,7 +17,18 @@ public class UserJpaRepository extends AbstractJpaRepository<User> {
 	public UserJpaRepository() {
 		super(User.class);
 	}
-	@Transactional
+	
+	public User findByEmail(String email) {
+		String qlQuery = "from User u left join fetch u.role r left join fetch r.rights";
+		
+		TypedQuery<User> query = em.createQuery(qlQuery, User.class);
+		query.setParameter("email", email);
+		
+		User user = query.getSingleResult();
+		
+		return user;
+	}
+	
 	public List<User> search(UserSearchCriteria criteria) {
 		String qlQuery = "from User u";
 		if (criteria.hasCriterias()) {
@@ -40,6 +51,9 @@ public class UserJpaRepository extends AbstractJpaRepository<User> {
 		}
 		if (criteria.getFidelityPoints() != null) {
 			qlQuery += " and u.fidelityPoints = :fidelityPoints";
+		}
+		if (!StringUtils.isEmpty(criteria.getEmail())) {
+			qlQuery += " and u.email = :email";
 		}
 		TypedQuery<User> query = em.createQuery(qlQuery, User.class);
 
@@ -64,8 +78,13 @@ public class UserJpaRepository extends AbstractJpaRepository<User> {
 			if (criteria.getFidelityPoints() != null) {
 				query.setParameter("fidelityPoints", criteria.getFidelityPoints());
 			}
+			
+			if (!StringUtils.isEmpty(criteria.getEmail())) {
+				query.setParameter("email", criteria.getEmail());
+			}
 		}
 
 		return query.getResultList();
 	}
+
 }

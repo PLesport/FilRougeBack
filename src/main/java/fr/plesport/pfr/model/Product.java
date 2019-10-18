@@ -111,11 +111,11 @@ public class Product implements IdEntity {
 		this.packaging = packaging;
 	}
 
-	public BigDecimal getPrix() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrix(BigDecimal prix) {
+	public void setPrice(BigDecimal prix) {
 		this.price = prix;
 	}
 

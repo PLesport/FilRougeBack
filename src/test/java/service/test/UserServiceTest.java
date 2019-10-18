@@ -25,13 +25,13 @@ public class UserServiceTest {
 
 	@Test
 	public void createTest() {
-		User user = new User(UserCivility.MR, "Jean", "Bonbeur", "12,  Rue des pins","Montpellier", "34000", "0123456789", "jean.bonbeur@gmail.com", "jeanbonbeur", false);
+		User user = new User(UserCivility.MR, "Jean", "Bonbeur", "12,  Rue des pins","Montpellier", "34000", "0123456789", "jean.bonbeur@gmail.com", "jeanbonbeur");
 		userService.createUser(user);
 	}
 	
 	@Test
 	public void createSameUserTest() {
-		User user = new User(UserCivility.MR, "Jean", "Bonbeur", "12,  Rue des pins","Montpellier", "34000", "0123456789", "jean.bonbeur@gmail.com", "jeanbonbeur", false);
+		User user = new User(UserCivility.MR, "Jean", "Bonbeur", "12,  Rue des pins","Montpellier", "34000", "0123456789", "jean.bonbeur@gmail.com", "jeanbonbeur");
 		userService.createUser(user);
 	}
 	
@@ -43,7 +43,7 @@ public class UserServiceTest {
 	
 	@Test
 	public void updateUserTest() {
-		User user = new User(UserCivility.MR, "Jean", "Bonbeur", "54,  Rue des moufles","Paris", "75000", "0123456789", "jean.bonbeur@gmail.com", "jeanbonbeur", false);
+		User user = new User(UserCivility.MR, "Jean", "Bonbeur", "54,  Rue des moufles","Paris", "75000", "0123456789", "jean.bonbeur@gmail.com", "jeanbonbeur");
 		userService.updateUser(user);
 	}
 	
