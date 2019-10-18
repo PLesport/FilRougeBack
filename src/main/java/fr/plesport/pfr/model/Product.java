@@ -51,8 +51,7 @@ public class Product implements IdEntity {
 	private ProductAvailability status;
 	@NotBlank
 	private String url;
-	@NotBlank
-	private String attributes;
+	
 
 	@OneToMany(mappedBy = "product")
 	private List<OrderLine> orderLines;
@@ -161,14 +160,6 @@ public class Product implements IdEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(String attributes) {
-		this.attributes = attributes;
 	}
 
 	public String getUrl() {

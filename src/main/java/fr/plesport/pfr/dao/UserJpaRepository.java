@@ -3,7 +3,6 @@ package fr.plesport.pfr.dao;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
