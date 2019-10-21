@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,18 +23,21 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.httpBasic()
-            .and().authorizeRequests()
+        http.
+        	sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+        	.and().cors()
+            .and().csrf().disable()
+            .authorizeRequests()
+            .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
             .antMatchers("/api/newsletter/**").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/api/blog/**", "/api/products/**").permitAll()
             .antMatchers("/api/orders/**", "/api/orderlines/**", "/api/users/**").authenticated()
             .antMatchers("/api/**").authenticated()
-            .and().csrf().disable()
-            .formLogin().disable();
+            .and().httpBasic();
     }
     
     @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+    public void configure(final AuthenticationManagerBuilder auth) throws Exception {
     	auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
     

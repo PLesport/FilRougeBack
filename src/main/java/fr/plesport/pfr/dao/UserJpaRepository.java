@@ -19,7 +19,7 @@ public class UserJpaRepository extends AbstractJpaRepository<User> {
 	}
 	
 	public User findByEmail(String email) {
-		String qlQuery = "from User u left join fetch u.role r left join fetch r.rights";
+		String qlQuery = "from User u left join fetch u.role r left join fetch r.rights where u.email = :email";
 		
 		TypedQuery<User> query = em.createQuery(qlQuery, User.class);
 		query.setParameter("email", email);
