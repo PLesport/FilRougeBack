@@ -24,7 +24,11 @@ import fr.plesport.pfr.model.User;
 import fr.plesport.pfr.model.criteria.UserSearchCriteria;
 import fr.plesport.pfr.service.UserService;
 
+<<<<<<< HEAD
 @CrossOrigin
+=======
+@CrossOrigin("http://localhost:4200")
+>>>>>>> 6b8ebbfca169eaf7f5681ad1143150db86aa7a70
 @Transactional
 @RestController
 @RequestMapping("/api/users")

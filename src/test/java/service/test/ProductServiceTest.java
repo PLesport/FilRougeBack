@@ -28,13 +28,13 @@ public class ProductServiceTest {
 
 	@Test
 	public void createTest() {
-		Product product = new Product("thé blanc rouge", "il est blanc et rouge", "TBR", ProductType.THE_BLANC, "Zimbabwe", ProductPackaging.HUNDRED_GRAMS, BigDecimal.valueOf(12.5), 5, 16, ProductAvailability.AVAILABLE);
+		Product product = new Product("thé blanc rouge", "il est blanc et rouge", "TBR", ProductType.THE_BLANC, "Zimbabwe", ProductPackaging.HUNDRED_GRAMS, BigDecimal.valueOf(12.5), 5, 16, ProductAvailability.AVAILABLE, "url");
 		productService.createProduct(product);
 	}
 	
 	@Test
 	public void createSameProductTest() {
-		Product product = new Product("thé blanc rouge", "il est blanc et rouge", "TBR", ProductType.THE_BLANC, "Zimbabwe", ProductPackaging.HUNDRED_GRAMS, BigDecimal.valueOf(12.5), 5, 16, ProductAvailability.AVAILABLE);
+		Product product = new Product("thé blanc rouge", "il est blanc et rouge", "TBR", ProductType.THE_BLANC, "Zimbabwe", ProductPackaging.HUNDRED_GRAMS, BigDecimal.valueOf(12.5), 5, 16, ProductAvailability.AVAILABLE, "url");
 		productService.createProduct(product);
 	}
 	
@@ -46,7 +46,7 @@ public class ProductServiceTest {
 	
 	@Test
 	public void updateProductTest() {
-		Product product = new Product("thé blanc rouge", "il est blanc et rouge", "TBR", ProductType.THE_ROOIBOS, "Zimbabwe", ProductPackaging.FIVE_HUNDRED_GRAMS, BigDecimal.valueOf(12.5), 5, 16, ProductAvailability.AVAILABLE);
+		Product product = new Product("thé blanc rouge", "il est blanc et rouge", "TBR", ProductType.THE_ROOIBOS, "Zimbabwe", ProductPackaging.FIVE_HUNDRED_GRAMS, BigDecimal.valueOf(12.5), 5, 16, ProductAvailability.AVAILABLE, "url");
 		productService.updateProduct(product);
 	}
 	

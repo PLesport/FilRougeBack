@@ -23,7 +23,7 @@ public class Product implements IdEntity {
 	private static final long serialVersionUID = -6869463480573840946L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY , generator="sequence-product")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "sequence-product")
 	private Long id;
 	@NotBlank
 	private String name;
@@ -51,8 +51,6 @@ public class Product implements IdEntity {
 	private ProductAvailability status;
 	@NotBlank
 	private String url;
-	@NotBlank
-	private String attributes;
 
 	@OneToMany(mappedBy = "product")
 	private List<OrderLine> orderLines;
@@ -62,7 +60,7 @@ public class Product implements IdEntity {
 
 	public Product(String name, String description, String reference, ProductType type, String origin,
 			ProductPackaging packaging, BigDecimal price, Integer discountRate, Integer stock,
-			ProductAvailability status) {
+			ProductAvailability status, String url) {
 		this.name = name;
 		this.description = description;
 		this.reference = reference;
@@ -73,6 +71,7 @@ public class Product implements IdEntity {
 		this.discountRate = discountRate;
 		this.stock = stock;
 		this.status = status;
+		this.url = url;
 	}
 
 	public Long getId() {
@@ -111,11 +110,11 @@ public class Product implements IdEntity {
 		this.packaging = packaging;
 	}
 
-	public BigDecimal getPrix() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrix(BigDecimal prix) {
+	public void setPrice(BigDecimal prix) {
 		this.price = prix;
 	}
 
@@ -144,7 +143,7 @@ public class Product implements IdEntity {
 	}
 
 	public void setId(Long id) {
-		this.id=id;
+		this.id = id;
 	}
 
 	public String getName() {
@@ -161,14 +160,6 @@ public class Product implements IdEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(String attributes) {
-		this.attributes = attributes;
 	}
 
 	public String getUrl() {

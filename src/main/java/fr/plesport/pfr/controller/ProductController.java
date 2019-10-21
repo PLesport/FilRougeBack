@@ -8,8 +8,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +25,8 @@ import fr.plesport.pfr.model.ProductPackaging;
 import fr.plesport.pfr.model.ProductType;
 import fr.plesport.pfr.model.criteria.ProductSearchCriteria;
 import fr.plesport.pfr.service.ProductService;
+
+@CrossOrigin("http://localhost:4200")
 @Transactional
 @RestController
 @RequestMapping("/api/products")

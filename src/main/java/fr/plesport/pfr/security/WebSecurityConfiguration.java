@@ -23,12 +23,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+<<<<<<< HEAD
         http.
         	sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
         	.and().cors()
             .and().csrf().disable()
             .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
+=======
+        http.httpBasic()
+        	.and().cors()
+            .and().authorizeRequests()
+>>>>>>> 6b8ebbfca169eaf7f5681ad1143150db86aa7a70
             .antMatchers("/api/newsletter/**").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/api/blog/**", "/api/products/**").permitAll()
             .antMatchers("/api/orders/**", "/api/orderlines/**", "/api/users/**").authenticated()

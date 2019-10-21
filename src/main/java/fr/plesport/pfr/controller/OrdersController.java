@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,8 @@ import fr.plesport.pfr.model.Orders;
 import fr.plesport.pfr.model.OrdersStatus;
 import fr.plesport.pfr.model.criteria.OrdersSearchCriteria;
 import fr.plesport.pfr.service.OrdersService;
+
+@CrossOrigin("http://localhost:4200")
 @Transactional
 @RestController
 @RequestMapping("/api/orders")

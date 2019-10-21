@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.plesport.pfr.model.Blog;
 import fr.plesport.pfr.model.criteria.BlogSearchCriteria;
 import fr.plesport.pfr.service.BlogService;
+
+@CrossOrigin("http://localhost:4200")
 @Transactional
 @RestController
 @RequestMapping(("/api/blog"))
