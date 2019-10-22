@@ -4,9 +4,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -32,38 +36,44 @@ public class Orders implements IdEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY , generator="sequence-orders")
 	private Long id;
-	@JsonFormat(pattern = "yyyy-MM-dd")
+
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime date;
+	
 	@NotBlank
 	private String shippingAdress;
+	
+	@Enumerated(EnumType.ORDINAL)
 	@NotNull
 	private OrdersStatus ordersStatus;
 
 	@NotNull
-	@OneToMany(mappedBy = "orders")
+	@OneToMany(mappedBy = "orders", fetch = FetchType.EAGER)
 	private List<OrderLine> orderLine;
+	
 	@ManyToOne
-	private User userId;
+	@JoinColumn(name = "userid_id")
+	private User user;
 
 	public Orders() {
 	}
 
 	public Orders(User user, LocalDateTime date, String shippingAdress, List<OrderLine> orderLine) {
 		this.orderLine = orderLine;
-		this.userId = user;
+		this.user = user;
 		this.date = date;
 		this.shippingAdress = shippingAdress;
 	}
 
 	public User getUser() {
-		return userId;
+		return user;
 	}
 
 	public void setUser(User user) {
-		this.userId = user;
+		this.user = user;
 	}
 
 	public LocalDateTime getDate() {
@@ -89,5 +99,23 @@ public class Orders implements IdEntity {
 	public void setId(Long id) {
 		this.id=id;
 	}
+
+	public OrdersStatus getOrdersStatus() {
+		return ordersStatus;
+	}
+
+	public void setOrdersStatus(OrdersStatus ordersStatus) {
+		this.ordersStatus = ordersStatus;
+	}
+
+	public List<OrderLine> getOrderLine() {
+		return orderLine;
+	}
+
+	public void setOrderLine(List<OrderLine> orderLine) {
+		this.orderLine = orderLine;
+	}
+	
+	
 
 }

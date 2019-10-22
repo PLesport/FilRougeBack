@@ -16,6 +16,8 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "product")
 @SequenceGenerator(name = "sequence-product", sequenceName = "sequenceProduct", initialValue = 1, allocationSize = 1)
@@ -25,33 +27,45 @@ public class Product implements IdEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "sequence-product")
 	private Long id;
+	
 	@NotBlank
 	private String name;
+	
 	@NotBlank
 	private String description;
+	
 	@NotBlank
 	private String reference;
+	
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private ProductType type;
+	
 	@NotBlank
 	private String origin;
+	
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private ProductPackaging packaging;
+	
 	@NotNull
 	@Digits(integer = 5, fraction = 2)
 	private BigDecimal price;
+	
 	@NotNull
 	private Integer discountRate;
+	
 	@NotNull
 	private Integer stock;
+	
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private ProductAvailability status;
+	
 	@NotBlank
 	private String url;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	private List<OrderLine> orderLines;
 
