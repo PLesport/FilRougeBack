@@ -54,8 +54,8 @@ public class OrderLineController {
 		return orderLineService.findOrderLineById(id);
 	}
 	
-	@PreAuthorize("hasAuthority('F_ORDERLINE')")
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+//	@PreAuthorize("hasAuthority('F_ORDERLINE')")
+	@RequestMapping(value = "/order/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<OrderLine> findOrderLineByOrderId(@PathVariable Long id) {
 		return orderLineService.findOrderLineByOrderId(id);

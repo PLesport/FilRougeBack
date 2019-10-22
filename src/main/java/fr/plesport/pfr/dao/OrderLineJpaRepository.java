@@ -42,7 +42,7 @@ public class OrderLineJpaRepository extends AbstractJpaRepository<OrderLine> {
 		return query.getResultList();
 	}
 	public List<OrderLine> findOrderLineByOrderId(Long id) {
-		TypedQuery<OrderLine> query = em.createQuery("from orderline where order_id = :id", OrderLine.class);
+		TypedQuery<OrderLine> query = em.createQuery("from OrderLine ol where ol.orders.id = :id", OrderLine.class);
 		query.setParameter("id", id);
 		return query.getResultList();
 	}
