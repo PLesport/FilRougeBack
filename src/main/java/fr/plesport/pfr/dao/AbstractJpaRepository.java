@@ -47,5 +47,7 @@ public abstract class AbstractJpaRepository<T extends IdEntity> {
 		TypedQuery<T> query = em.createQuery("from " + classType.getSimpleName(), classType);
 		return query.getResultList();
 	}
+	
+	
 
 }

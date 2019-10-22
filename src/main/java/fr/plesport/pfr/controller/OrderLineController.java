@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.plesport.pfr.model.OrderLine;
+import fr.plesport.pfr.model.Orders;
 import fr.plesport.pfr.model.criteria.OrderLineSearchCriteria;
 import fr.plesport.pfr.service.OrderLineService;
 
@@ -52,6 +53,13 @@ public class OrderLineController {
 	public OrderLine findOrderLineById(@PathVariable Long id) {
 		return orderLineService.findOrderLineById(id);
 	}
+	
+	@PreAuthorize("hasAuthority('F_ORDERLINE')")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<OrderLine> findOrderLineByOrderId(@PathVariable Long id) {
+		return orderLineService.findOrderLineByOrderId(id);
+	}
 
 	@PreAuthorize("hasAuthority('F_ORDERLINE')")
 	@RequestMapping(method = RequestMethod.GET)
@@ -71,8 +79,9 @@ public class OrderLineController {
 	@PreAuthorize("hasAuthority('F_ORDERLINE')")
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public List<OrderLine> search(@RequestParam(name = "orderLineNumber", required = false) Long id,
-			@RequestParam(required = false) Integer quantity) {
-		OrderLineSearchCriteria criteria = new OrderLineSearchCriteria(id, quantity);
+			@RequestParam(required = false) Integer quantity,
+			@RequestParam(required = false) Orders order ) {
+		OrderLineSearchCriteria criteria = new OrderLineSearchCriteria(id, quantity, order);
 		return orderLineService.search(criteria);
 	}
 

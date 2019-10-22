@@ -34,7 +34,10 @@ public class OrderLineService {
 	public List<OrderLine> findAll() {
 		return orderLineJpaRepository.findAll();
 	}
-
+	public List<OrderLine> findOrderLineByOrderId(Long id) {
+		return orderLineJpaRepository.findOrderLineByOrderId(id);
+	}
+	
 	public List<OrderLine> search(OrderLineSearchCriteria criteria) {
 		return orderLineJpaRepository.search(criteria);
 	}
