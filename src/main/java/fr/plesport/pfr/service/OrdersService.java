@@ -30,6 +30,10 @@ public class OrdersService {
 	public Orders findOrdersById(Long id) {
 		return ordersJpaRepository.find(id);
 	}
+	
+public List<Orders> findOrdersByUserId(Long id) {
+	return ordersJpaRepository.findByUserId(id);
+	}
 
 	public List<Orders> findAll() {
 		return ordersJpaRepository.findAll();
@@ -39,3 +43,4 @@ public class OrdersService {
 		return ordersJpaRepository.search(criteria);
 	}
 }
+	

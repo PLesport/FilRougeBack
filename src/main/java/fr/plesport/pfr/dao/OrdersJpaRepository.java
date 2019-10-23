@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import fr.plesport.pfr.model.OrderLine;
 import fr.plesport.pfr.model.Orders;
 import fr.plesport.pfr.model.criteria.OrdersSearchCriteria;
 
@@ -56,4 +57,12 @@ public class OrdersJpaRepository extends AbstractJpaRepository<Orders> {
 
 		return query.getResultList();
 	}
+
+	public List<Orders> findByUserId(Long id) {
+		TypedQuery<Orders> query = em.createQuery("from Orders o where o.user.id = :id", Orders.class);
+		query.setParameter("id", id);
+		return query.getResultList();
+	}
+	
+	
 }

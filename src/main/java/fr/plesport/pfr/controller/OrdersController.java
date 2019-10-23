@@ -57,6 +57,13 @@ public class OrdersController {
 	public Orders findOrdersById(@PathVariable Long id) {
 		return ordersService.findOrdersById(id);
 	}
+	
+	@PreAuthorize("hasAuthority('F_ORDER') or returnObject.user.email == principal.username")
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Orders> findOrdersByUserId(@PathVariable Long id) {
+		return ordersService.findOrdersByUserId(id);
+	}
 
 	@PreAuthorize("hasAuthority('F_ORDER')")
 	@RequestMapping(method = RequestMethod.GET)
